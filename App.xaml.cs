@@ -1,17 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MAN1.Data;
 
 namespace MAN1
 {
     public partial class App : Application
     {
-        public App()
+        public App(AppDbContext db)
         {
             InitializeComponent();
+            db.Database.EnsureCreated();
+            MainPage = new AppShell();
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
-        }
+        
     }
 }
