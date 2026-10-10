@@ -8,6 +8,6 @@
         public DateTime Date { get; set; }
         public TimeSpan StartTime { get; set; }
         public int Duration { get; set; }
-        public string Coment { get; set; } = "";
+        public string Comment { get; set; } = "";
     }
 }

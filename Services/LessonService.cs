@@ -11,11 +11,11 @@ namespace MAN1.Services
         {
             _db = db;
         }
-        public async Task<List<Lesson>> GetAllLessons()
+        public async Task<List<Lesson>> GetLesson()
         {
             return await _db.Lessons.ToListAsync();
         }
-        public async Task AddLesons(Lesson lesson)
+        public async Task AddLesson(Lesson lesson)
         {
             _db.Lessons.Add(lesson);
             await _db.SaveChangesAsync();
