@@ -1,3 +1,4 @@
+using MAN1.Services;
 using MAN1.ViewModel;
 
 namespace MAN1.Views;
@@ -19,5 +20,10 @@ public partial class LessonsPage : ContentPage
         base.OnAppearing();
 
         await _viewModel.LoadLesson();
+    }
+
+    private async void AddLessonButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddLessonPage(_viewModel));
     }
 }

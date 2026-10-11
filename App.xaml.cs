@@ -11,7 +11,7 @@ namespace MAN1
             InitializeComponent();
             db.Database.EnsureCreated();
 
-            MainPage = lessonsPage;
+            MainPage = new NavigationPage(lessonsPage);
         }
         
     }

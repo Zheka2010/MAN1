@@ -23,6 +23,7 @@ namespace MAN1
             builder.Services.AddTransient<LessonService>();
             builder.Services.AddTransient<LessonsViewModel>();
             builder.Services.AddTransient<LessonsPage>();
+            builder.Services.AddTransient<AddLessonPage>();
 
 
             return builder.Build();
