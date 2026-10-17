@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Plugin.LocalNotification;
 using MAN1.Data;
 using MAN1.Services;
 using MAN1.Views;
@@ -13,6 +14,7 @@ namespace MAN1
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -24,6 +26,7 @@ namespace MAN1
             builder.Services.AddTransient<LessonsViewModel>();
             builder.Services.AddTransient<LessonsPage>();
             builder.Services.AddTransient<AddLessonPage>();
+            builder.Services.AddTransient<NotificationService>();
 
 
             return builder.Build();

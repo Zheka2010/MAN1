@@ -29,6 +29,18 @@ namespace MAN1.Services
         {
             _db.Lessons.Remove(lesson);
             await _db.SaveChangesAsync();
-        } 
+        }
+        public async Task DeleteOldLessons()
+        {
+            var today = DateTime.Today;
+            var oldLessons = await _db.Lessons
+                .Where(l => l.Date < today)
+                .ToListAsync();
+            if (oldLessons.Any())
+            {
+                _db.Lessons.RemoveRange(oldLessons);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }

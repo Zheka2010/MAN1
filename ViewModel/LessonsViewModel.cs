@@ -32,5 +32,9 @@ namespace MAN1.ViewModel
             await _lessonService.DeleteLesson(lesson);
             Lessons.Remove(lesson);
         }
+        public async Task DeleteOldLessons()
+        {
+            await _lessonService.DeleteOldLessons();
+        }
     }
 }
