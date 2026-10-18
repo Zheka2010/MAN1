@@ -23,66 +23,64 @@
                 FontSize="16"/>
 
             <CollectionView
-                Grid.Row="2"
-                ItemsSource="{Binding Lessons}">
+    Grid.Row="2"
+    ItemsSource="{Binding Lessons}"
+    SelectionMode="Single"
+    SelectionChanged="LessonSelectionChanged">
 
                 <CollectionView.ItemTemplate>
-
                     <DataTemplate>
 
                         <Border
-                            StrokeThickness="1"
-                            Padding="15"
-                            Margin="0,5">
+                StrokeThickness="1"
+                Padding="15"
+                Margin="0,5">
 
                             <Grid ColumnDefinitions="*,Auto">
 
                                 <VerticalStackLayout
-                                    Grid.Column="0"
-                                    Spacing="5">
+                        Grid.Column="0"
+                        Spacing="5">
 
                                     <Label
-                                        Text="{Binding Subject}"
-                                        FontSize="20"
-                                        FontAttributes="Bold"/>
+                            Text="{Binding Subject}"
+                            FontSize="20"
+                            FontAttributes="Bold"/>
 
                                     <Label
-                                        Text="{Binding StudentName}"
-                                        FontSize="16"/>
+                            Text="{Binding StudentName}"
+                            FontSize="16"/>
 
                                     <Label
-                                        Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
-                                        FontSize="14"/>
+                            Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
+                            FontSize="14"/>
 
                                     <Label
-                                        Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}"
-                                        FontSize="14"/>
+                            Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}"
+                            FontSize="14"/>
 
                                     <Label
-                                        Text="{Binding Comment}"
-                                        FontSize="14"/>
+                            Text="{Binding Comment}"
+                            FontSize="14"/>
 
                                 </VerticalStackLayout>
 
                                 <Button
-                                    Grid.Column="1"
-                                    Text="✕"
-                                    FontSize="18"
-                                    WidthRequest="45"
-                                    HeightRequest="45"
-                                    CornerRadius="23"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"
-                                    Margin="10,0,0,0"
-                                    CommandParameter="{Binding .}"
-                                    Clicked="DeleteLessonButton_Clicked"/>
+                        Grid.Column="1"
+                        Text="✕"
+                        FontSize="18"
+                        WidthRequest="45"
+                        HeightRequest="45"
+                        CornerRadius="23"
+                        VerticalOptions="Center"
+                        CommandParameter="{Binding .}"
+                        Clicked="DeleteLessonButton_Clicked"/>
 
                             </Grid>
 
                         </Border>
 
                     </DataTemplate>
-
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
@@ -99,6 +97,17 @@
             VerticalOptions="End"
             Margin="0,0,10,10"
             Clicked="AddLessonButton_Clicked"/>
+        <Button
+            Text="📊"
+            FontSize="28"
+            WidthRequest="65"
+            HeightRequest="65"
+            CornerRadius="33"
+            HorizontalOptions="Start"
+            VerticalOptions="End"
+            Margin="10,0,0,10"
+            Clicked="StatisticsButton_Clicked"/>
+        
 
     </Grid>
 

@@ -48,5 +48,33 @@ namespace MAN1.Services
             }
             await _db.SaveChangesAsync();
         }
+
+        public async Task<(int Count, int TotalMinutes)> GetMonthlyStatistics(int year,int month)
+        {
+            var start = new DateTime(year, month, 1);
+            var end = start.AddMonths(1);
+
+            var lessons = await _db.Lessons.Where(x => x.IsCompleted &&x.Date >= start &&x.Date < end).ToListAsync();
+
+            return (lessons.Count,lessons.Sum(x => x.Duration));
+        }
+        public async Task<List<int>> GetLessonsByDay(int year, int month)
+        {
+            var start = new DateTime(year, month, 1);
+            var end = start.AddMonths(1);
+
+            var lessons = await _db.Lessons.Where(x => x.IsCompleted && x.Date >= start && x.Date < end).ToListAsync();
+
+            int days = DateTime.DaysInMonth(year, month);
+
+            var result = new List<int>();
+
+            for (int day = 1; day <= days; day++)
+            {
+                result.Add(lessons.Count(x => x.Date.Day == day));
+            }
+
+            return result;
+        }
     }
 }

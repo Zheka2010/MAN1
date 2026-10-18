@@ -3,6 +3,8 @@ using MAN1.Data;
 using MAN1.Services;
 using MAN1.Views;
 using MAN1.ViewModel;
+using LiveChartsCore.SkiaSharpView.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace MAN1
 {
@@ -13,6 +15,8 @@ namespace MAN1
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
+                .UseLiveCharts()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -25,7 +29,8 @@ namespace MAN1
             builder.Services.AddTransient<LessonsPage>();
             builder.Services.AddTransient<AddLessonPage>();
             builder.Services.AddTransient<NotificationService>();
-            #if ANDROID
+            builder.Services.AddTransient<StatisticsPage>();
+#if ANDROID
             builder.Services.AddSingleton<INotificationService,MAN1.Platforms.Android.AndroidNotificationService>();
             #endif
 

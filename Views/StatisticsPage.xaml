@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+    x:Class="MAN1.Views.StatisticsPage"
+    Title="Статистика">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label
+            Text="Статистика"
+            FontSize="28"
+            FontAttributes="Bold"/>
+
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Spacing="20">
+
+            <Button
+                Text="←"
+                FontSize="20"
+                Clicked="PreviousMonth_Clicked"/>
+
+            <Label
+                x:Name="MonthLabel"
+                FontSize="28"
+                VerticalOptions="Center"/>
+
+            <Button
+                Text="→"
+                FontSize="20"
+                Clicked="NextMonth_Clicked"/>
+
+        </HorizontalStackLayout>
+
+        <Border
+            StrokeThickness="1"
+            Padding="20">
+
+            <VerticalStackLayout Spacing="15">
+
+                <Label
+                    Text="Проведено занять"
+                    FontSize="16"/>
+
+                <Label
+                    x:Name="LessonsCountLabel"
+                    Text="0"
+                    FontSize="32"
+                    FontAttributes="Bold"/>
+
+                <Label
+                    Text="Загальний час"
+                    FontSize="16"/>
+
+                <Label
+                    x:Name="TotalTimeLabel"
+                    Text="0 год 0 хв"
+                    FontSize="26"
+                    FontAttributes="Bold"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+        <Label
+            Text="Заняття по днях"
+            FontSize="20"
+            FontAttributes="Bold"/>
+
+        <lvc:CartesianChart
+            x:Name="LessonsChart"
+            HeightRequest="300"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>

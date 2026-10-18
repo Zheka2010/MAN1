@@ -36,5 +36,9 @@ namespace MAN1.ViewModel
         {
             await _lessonService.CompleteOldLessons();
         }
+        public async Task UpdateLesson(Lesson lesson)
+        {
+            await _lessonService.UpdateLesson(lesson);
+        }
     }
 }
