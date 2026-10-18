@@ -13,7 +13,14 @@ namespace MAN1.Services
         }
         public async Task<List<Lesson>> GetLesson()
         {
-            return await _db.Lessons.ToListAsync();
+            var lessons = await _db.Lessons
+                .Where(x => !x.IsCompleted)
+                .ToListAsync();
+
+            return lessons
+                .OrderBy(x => x.Date)
+                .ThenBy(x => x.StartTime)
+                .ToList();
         }
         public async Task AddLesson(Lesson lesson)
         {
@@ -30,17 +37,16 @@ namespace MAN1.Services
             _db.Lessons.Remove(lesson);
             await _db.SaveChangesAsync();
         }
-        public async Task DeleteOldLessons()
+        public async Task CompleteOldLessons()
         {
             var today = DateTime.Today;
-            var oldLessons = await _db.Lessons
-                .Where(l => l.Date < today)
-                .ToListAsync();
-            if (oldLessons.Any())
+            var oldLessons = await _db.Lessons.Where(x => x.Date < today && !x.IsCompleted).ToListAsync();
+
+            foreach(var lesson in oldLessons)
             {
-                _db.Lessons.RemoveRange(oldLessons);
-                await _db.SaveChangesAsync();
+                lesson.IsCompleted = true;
             }
+            await _db.SaveChangesAsync();
         }
     }
 }

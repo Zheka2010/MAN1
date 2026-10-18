@@ -9,5 +9,6 @@
         public TimeSpan StartTime { get; set; }
         public int Duration { get; set; }
         public string Comment { get; set; } = "";
+        public bool IsCompleted { get; set; }
     }
 }

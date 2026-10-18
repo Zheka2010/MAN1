@@ -1,16 +1,16 @@
 using MAN1.Models;
 using MAN1.Services;
 using MAN1.ViewModel;
-using Plugin.LocalNotification;
+
 
 namespace MAN1.Views;
 
 public partial class LessonsPage : ContentPage
 {
     private readonly LessonsViewModel _viewModel;
-    private readonly NotificationService _notificationService;
+    private readonly INotificationService _notificationService;
 
-    public LessonsPage(LessonsViewModel viewModel, NotificationService notificationService)
+    public LessonsPage(LessonsViewModel viewModel, INotificationService notificationService)
     {
         InitializeComponent();
 
@@ -23,9 +23,16 @@ public partial class LessonsPage : ContentPage
     {
         base.OnAppearing();
 
-        await LocalNotificationCenter.Current.RequestNotificationPermission();
+#if ANDROID
+        var status = await Permissions.CheckStatusAsync<Permissions.PostNotifications>();
 
-        await _viewModel.DeleteOldLessons();
+        if (status != PermissionStatus.Granted)
+        {
+            status = await Permissions.RequestAsync<Permissions.PostNotifications>();
+        }
+#endif
+
+        await _viewModel.CompleteOldLessons();
         await _viewModel.LoadLesson();
 
     }
@@ -39,7 +46,7 @@ public partial class LessonsPage : ContentPage
     {
         if (sender is Button button && button.CommandParameter is Lesson lesson)
         {
-            _notificationService.CancelLessonNotification(lesson);
+            _notificationService.CancelLessonNotification(lesson.Id);
 
             await _viewModel.DeleteLesson(lesson);
         }

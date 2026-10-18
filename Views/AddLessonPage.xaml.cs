@@ -1,17 +1,16 @@
 using MAN1.Models;
 using MAN1.Services;
 using MAN1.ViewModel;
-using Plugin.LocalNotification;
-using Plugin.LocalNotification.Core.Models;
+
 
 namespace MAN1.Views;
 
 public partial class AddLessonPage : ContentPage
 {
     private readonly LessonsViewModel _viewModel;
-    private readonly NotificationService _notificationService;
+    private readonly INotificationService _notificationService;
 
-    public AddLessonPage(LessonsViewModel viewModel, NotificationService notificationService)
+    public AddLessonPage(LessonsViewModel viewModel, INotificationService notificationService)
     {
         InitializeComponent();
 
@@ -24,17 +23,20 @@ public partial class AddLessonPage : ContentPage
         if (string.IsNullOrWhiteSpace(StudentEntry.Text) ||
            string.IsNullOrWhiteSpace(SubjectEntry.Text))
         {
-            await DisplayAlert("Помилка", "Заповніть ім'я учня і предмет", "OK");
+            await DisplayAlert("Помилка","Заповніть ім'я учня і предмет","OK");
+
             return;
         }
 
         var date = LessonDatePicker.Date ?? DateTime.Today;
         var time = LessonTimePicker.Time ?? TimeSpan.Zero;
+
         var lessonDateTime = date.Date + time;
 
-        if(lessonDateTime < DateTime.Now)
+        if (lessonDateTime < DateTime.Now)
         {
-            await DisplayAlert("Помилка", "Дата та час уроку не можуть бути в минулому", "OK");
+            await DisplayAlert("Помилка","Дата та час уроку не можуть бути в минулому","OK");
+
             return;
         }
 
@@ -49,8 +51,8 @@ public partial class AddLessonPage : ContentPage
         {
             StudentName = StudentEntry.Text,
             Subject = SubjectEntry.Text,
-            Date = LessonDatePicker.Date ?? DateTime.Today,
-            StartTime = LessonTimePicker.Time ?? TimeSpan.Zero,
+            Date = date,
+            StartTime = time,
             Duration = duration,
             Comment = CommentEditor.Text ?? ""
         };
