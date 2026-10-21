@@ -5,9 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MAN1.Views.LessonsPage">
 
-    <Grid Padding="20">
+    <Grid RowDefinitions="*,Auto">
 
         <Grid
+            Grid.Row="0"
+            Padding="20"
             RowDefinitions="Auto,Auto,*"
             RowSpacing="10">
 
@@ -23,58 +25,58 @@
                 FontSize="16"/>
 
             <CollectionView
-    Grid.Row="2"
-    ItemsSource="{Binding Lessons}"
-    SelectionMode="Single"
-    SelectionChanged="LessonSelectionChanged">
+                Grid.Row="2"
+                ItemsSource="{Binding Lessons}"
+                SelectionMode="Single"
+                SelectionChanged="LessonSelectionChanged">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
                         <Border
-                StrokeThickness="1"
-                Padding="15"
-                Margin="0,5">
+                            StrokeThickness="1"
+                            Padding="15"
+                            Margin="0,5">
 
                             <Grid ColumnDefinitions="*,Auto">
 
                                 <VerticalStackLayout
-                        Grid.Column="0"
-                        Spacing="5">
+                                    Grid.Column="0"
+                                    Spacing="5">
 
                                     <Label
-                            Text="{Binding Subject}"
-                            FontSize="20"
-                            FontAttributes="Bold"/>
+                                        Text="{Binding Subject}"
+                                        FontSize="20"
+                                        FontAttributes="Bold"/>
 
                                     <Label
-                            Text="{Binding StudentName}"
-                            FontSize="16"/>
+                                        Text="{Binding StudentName}"
+                                        FontSize="16"/>
 
                                     <Label
-                            Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
-                            FontSize="14"/>
+                                        Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
+                                        FontSize="14"/>
 
                                     <Label
-                            Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}"
-                            FontSize="14"/>
+                                        Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}"
+                                        FontSize="14"/>
 
                                     <Label
-                            Text="{Binding Comment}"
-                            FontSize="14"/>
+                                        Text="{Binding Comment}"
+                                        FontSize="14"/>
 
                                 </VerticalStackLayout>
 
                                 <Button
-                        Grid.Column="1"
-                        Text="✕"
-                        FontSize="18"
-                        WidthRequest="45"
-                        HeightRequest="45"
-                        CornerRadius="23"
-                        VerticalOptions="Center"
-                        CommandParameter="{Binding .}"
-                        Clicked="DeleteLessonButton_Clicked"/>
+                                    Grid.Column="1"
+                                    Text="✕"
+                                    FontSize="18"
+                                    WidthRequest="45"
+                                    HeightRequest="45"
+                                    CornerRadius="23"
+                                    VerticalOptions="Center"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="DeleteLessonButton_Clicked"/>  
 
                             </Grid>
 
@@ -87,27 +89,40 @@
 
         </Grid>
 
-        <Button
-            Text="+"
-            FontSize="32"
-            WidthRequest="65"
-            HeightRequest="65"
-            CornerRadius="33"
-            HorizontalOptions="End"
-            VerticalOptions="End"
-            Margin="0,0,10,10"
-            Clicked="AddLessonButton_Clicked"/>
-        <Button
-            Text="📊"
-            FontSize="28"
-            WidthRequest="65"
-            HeightRequest="65"
-            CornerRadius="33"
-            HorizontalOptions="Start"
-            VerticalOptions="End"
-            Margin="10,0,0,10"
-            Clicked="StatisticsButton_Clicked"/>
-        
+
+        <Grid Grid.Row="1" Padding="20,8" ColumnDefinitions="*,*">
+                <Button
+                    Grid.Column="0"
+                    Text="📊"
+                    FontSize="28"
+                    WidthRequest="65"
+                    HeightRequest="65"
+                    CornerRadius="33"
+                    HorizontalOptions="Start"
+                    VerticalOptions="End"
+                    Margin="10,0,0,10"
+                    BackgroundColor="Transparent"
+                    BorderWidth="0"
+                    TextColor="White"
+                    Clicked="StatisticsButton_Clicked"/>
+
+                <Button
+                    Grid.Column="1"
+                    Text="+"
+                    FontSize="32"
+                    WidthRequest="65"
+                    HeightRequest="65"
+                    CornerRadius="33"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="0,0,10,10"
+                    BackgroundColor="Transparent"
+                    BorderWidth="0"
+                    TextColor="White"
+                    Clicked="AddLessonButton_Clicked"/>
+
+            </Grid>
+
 
     </Grid>
 
