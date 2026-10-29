@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAN1.Views.CalendarPage"
+             Title="CalendarPage">
+
+    <Grid Padding="20" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="15">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+            <Button Grid.Column="0" Text="←" WidthRequest="50" Clicked="PreviousMonth_Clicked"/>
+            <Label Grid.Column="1" x:Name="MonthLabel" FontSize="22" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Button Grid.Column="2" Text="→" WidthRequest="50" Clicked="NextMonth_Clicked"/>
+        </Grid>
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*,*,*">
+            <Label Grid.Column="0" Text="Пн" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1" Text="Вт" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="2" Text="Ср" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="3" Text="Чт" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="4" Text="Пт" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="5" Text="Сб" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="6" Text="Нд" HorizontalTextAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="2" x:Name="CalendarGrid" ColumnDefinitions="*,*,*,*,*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="4" ColumnSpacing="4"/>
+        <Grid Grid.Row="3" RowDefinitions="Auto,*" RowSpacing="10">
+            <Label Grid.Row="0" x:Name="SelectedDateLabel" FontSize="18"  FontAttributes="Bold"/>
+            <CollectionView Grid.Row="1" x:Name="LessonsCollection">
+                <CollectionView.EmptyView>
+                    <Label Text="На цей день занять немає" HorizontalOptions="Center" Margin="0,20"/>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="12" Margin="0,5" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Subject}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding StudentName}" FontSize="15"/>
+                                <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}" FontSize="15"/>
+                                <Label Text="{Binding Comment}" FontSize="14"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -32,7 +32,8 @@ namespace MAN1
             builder.Services.AddTransient<StatisticsPage>();
 #if ANDROID
             builder.Services.AddSingleton<INotificationService,MAN1.Platforms.Android.AndroidNotificationService>();
-            #endif
+#endif
+            builder.Services.AddTransient<CalendarPage>();
 
             return builder.Build();
         }

@@ -76,5 +76,17 @@ namespace MAN1.Services
 
             return result;
         }
+        public async Task<List<Lesson>> GetLessonsByDate(DateTime date)
+        {
+            var nextDay = date.Date.AddDays(1);
+            return await _db.Lessons.Where(x => x.Date >= date.Date && x.Date < nextDay).ToListAsync();
+        }
+        public async Task<List<Lesson>> GetLessonsForMonth(int year, int month)
+        {
+            var start = new DateTime(year, month, 1);
+            var end = start.AddMonths(1);
+            var lessons = await _db.Lessons.Where(x => x.Date >= start && x.Date < end).ToListAsync();
+            return lessons;
+        }
     }
 }
