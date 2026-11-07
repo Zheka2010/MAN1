@@ -7,7 +7,10 @@
 
     <Grid RowDefinitions="*,Auto">
         <Grid Grid.Row="0" Padding="20" RowDefinitions="Auto,Auto,*" RowSpacing="10">
-            <Label Grid.Row="0" Text="Мої заняття" FontSize="28" FontAttributes="Bold"/>
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                <Label Text="Заняття сьогодні" FontSize="28" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Button Grid.Column="1" Text="Учні" FontSize="16" Clicked="StudentsButton_Clicked"/>
+            </Grid>
             <Label Grid.Row="1" Text="{Binding Lessons.Count, StringFormat='Кількість занять: {0}'}" FontSize="16"/>
             <CollectionView Grid.Row="2" ItemsSource="{Binding Lessons}" SelectionMode="Single" SelectionChanged="LessonSelectionChanged">
                 <CollectionView.ItemTemplate>

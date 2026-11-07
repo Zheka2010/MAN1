@@ -10,8 +10,9 @@ public partial class LessonsPage : ContentPage
     private readonly LessonsViewModel _viewModel;
     private readonly INotificationService _notificationService;
     private readonly LessonService _lessonService;
+    private readonly StudentService _studentService;
 
-    public LessonsPage(LessonsViewModel viewModel, INotificationService notificationService, LessonService lessonService)
+    public LessonsPage(LessonsViewModel viewModel, INotificationService notificationService, LessonService lessonService, StudentService studentService)
     {
         InitializeComponent();
 
@@ -19,6 +20,7 @@ public partial class LessonsPage : ContentPage
         _notificationService = notificationService;
         BindingContext = _viewModel;
         _lessonService = lessonService;
+        _studentService = studentService;
     }
 
     protected override async void OnAppearing()
@@ -41,7 +43,7 @@ public partial class LessonsPage : ContentPage
 
     private async void AddLessonButton_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddLessonPage(_viewModel, _notificationService));
+        await Navigation.PushAsync(new AddLessonPage(_viewModel,_notificationService,_studentService));
     }
 
     private async void DeleteLessonButton_Clicked(object sender, EventArgs e)
@@ -69,5 +71,9 @@ public partial class LessonsPage : ContentPage
     private async void CalendarButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new CalendarPage(_lessonService));
+    }
+    private async void StudentsButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new StudentsPage(_studentService));
     }
 }

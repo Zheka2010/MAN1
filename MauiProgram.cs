@@ -30,6 +30,9 @@ namespace MAN1
             builder.Services.AddTransient<AddLessonPage>();
             builder.Services.AddTransient<NotificationService>();
             builder.Services.AddTransient<StatisticsPage>();
+            builder.Services.AddScoped<StudentService>();
+            builder.Services.AddTransient<StudentsPage>();
+            builder.Services.AddTransient<AddStudentPage>();
 #if ANDROID
             builder.Services.AddSingleton<INotificationService,MAN1.Platforms.Android.AndroidNotificationService>();
 #endif

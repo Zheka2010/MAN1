@@ -13,14 +13,10 @@ namespace MAN1.Services
         }
         public async Task<List<Lesson>> GetLesson()
         {
-            var lessons = await _db.Lessons
-                .Where(x => !x.IsCompleted)
-                .ToListAsync();
-
-            return lessons
-                .OrderBy(x => x.Date)
-                .ThenBy(x => x.StartTime)
-                .ToList();
+            var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
+            var lessons = await _db.Lessons.Where(x => !x.IsCompleted && x.Date >= today && x.Date < tomorrow).ToListAsync();
+            return lessons.OrderBy(x => x.StartTime).ToList();
         }
         public async Task AddLesson(Lesson lesson)
         {

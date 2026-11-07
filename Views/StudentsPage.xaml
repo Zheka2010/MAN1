@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MAN1.Views.StudentsPage"
+    Title="Учні">
+    <Grid Padding="20" RowDefinitions="Auto,*" RowSpacing="15">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <Label Text="Мої учні" FontSize="28" FontAttributes="Bold" VerticalOptions="Center"/>
+            <Button
+                Grid.Column="1"
+                Text="+"
+                FontSize="28"
+                WidthRequest="55"
+                HeightRequest="55"
+                CornerRadius="28"
+                Clicked="AddStudentButton_Clicked"/>
+        </Grid>
+        <CollectionView Grid.Row="1" x:Name="StudentsCollection" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Учнів ще немає" HorizontalOptions="Center" Margin="0,30"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="15" Margin="0,5" StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="{Binding Name}" FontSize="19" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Button
+                                Grid.Column="1"
+                                Text="✕"
+                                WidthRequest="45"
+                                HeightRequest="45"
+                                CornerRadius="23"
+                                CommandParameter="{Binding .}"
+                                Clicked="DeleteStudentButton_Clicked"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -6,11 +6,15 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label Text="Додати урок" FontSize="28" FontAttributes="Bold"/>
-            <Entry x:Name="StudentEntry" Placeholder="Ім'я учня"/>
+            <Picker x:Name="StudentPicker" Title="Виберіть учня" ItemDisplayBinding="{Binding Name}"/>
             <Entry x:Name="SubjectEntry" Placeholder="Предмет"/>
             <DatePicker x:Name="LessonDatePicker"/>
             <TimePicker x:Name="LessonTimePicker"/>
             <Entry x:Name="DurationEntry" Placeholder="Тривалість в хвилинах"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Щотижня до кінця місяця" FontSize="16" VerticalOptions="Center"/>
+                <Switch Grid.Column="1" x:Name="RepeatWeeklySwitch" VerticalOptions="Center"/>
+            </Grid>
             <Editor x:Name="CommentEditor" Placeholder="Коментар"/>
             <Button Text="Зберегти урок" Clicked="SaveButton_Clicked"/>
         </VerticalStackLayout>
