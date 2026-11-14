@@ -114,4 +114,11 @@ public partial class CalendarPage : ContentPage
         _selectedDate = new DateTime(_currentMonth.Year, _currentMonth.Month, 1);
         await LoadCalendar();
     }
+    private async void DeleteLessonButton_Clicked(object sender, EventArgs e)
+    {
+        if (sender is not Button button || button.CommandParameter is not Lesson lesson) return;
+
+        await _lessonService.DeleteLesson(lesson);
+        await LoadCalendar();
+    }
 }

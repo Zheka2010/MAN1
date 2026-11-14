@@ -45,24 +45,34 @@ namespace MAN1.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task<(int Count, int TotalMinutes)> GetMonthlyStatistics(int year,int month)
+        public async Task<(int Count, int TotalMinutes)> GetMonthlyStatistics(int year, int month, int? studentId = null)
         {
             var start = new DateTime(year, month, 1);
             var end = start.AddMonths(1);
 
-            var lessons = await _db.Lessons.Where(x => x.IsCompleted &&x.Date >= start &&x.Date < end).ToListAsync();
+            var query = _db.Lessons.Where(x => x.IsCompleted && x.Date >= start && x.Date < end);
+            if (studentId.HasValue && studentId.Value > 0)
+            {
+                query = query.Where(x => x.StudentId == studentId.Value);
+            }
 
-            return (lessons.Count,lessons.Sum(x => x.Duration));
+            var lessons = await query.ToListAsync();
+            return (lessons.Count, lessons.Sum(x => x.Duration));
         }
-        public async Task<List<int>> GetLessonsByDay(int year, int month)
+
+        public async Task<List<int>> GetLessonsByDay(int year, int month, int? studentId = null)
         {
             var start = new DateTime(year, month, 1);
             var end = start.AddMonths(1);
 
-            var lessons = await _db.Lessons.Where(x => x.IsCompleted && x.Date >= start && x.Date < end).ToListAsync();
+            var query = _db.Lessons.Where(x => x.IsCompleted && x.Date >= start && x.Date < end);
+            if (studentId.HasValue && studentId.Value > 0)
+            {
+                query = query.Where(x => x.StudentId == studentId.Value);
+            }
 
+            var lessons = await query.ToListAsync();
             int days = DateTime.DaysInMonth(year, month);
-
             var result = new List<int>();
 
             for (int day = 1; day <= days; day++)
@@ -83,6 +93,25 @@ namespace MAN1.Services
             var end = start.AddMonths(1);
             var lessons = await _db.Lessons.Where(x => x.Date >= start && x.Date < end).ToListAsync();
             return lessons;
+        }
+        public class StudentStatItem
+        {
+            public string StudentName { get; set; } = "";
+            public int Count { get; set; }
+            public string TotalTime { get; set; } = "";
+        }
+        public async Task<List<StudentStatItem>> GetStatisticsByStudent(int year,int month)
+        {
+            var start = new DateTime(year,month,1);
+            var end = start.AddMonths(1);
+            var lessons = await _db.Lessons.Where(x => x.IsCompleted && x.Date >= start && x.Date < end).ToListAsync();
+            return lessons.GroupBy(x => new { x.StudentId, x.StudentName }).Select(g => new StudentStatItem
+            {
+                StudentName = g.Key.StudentName,
+                Count = g.Count(),
+                TotalTime = $"{g.Sum(x => x.Duration) / 60} год {g.Sum(x => x.Duration) % 60} хв"
+            })
+            .OrderByDescending(x => x.Count).ToList();
         }
     }
 }

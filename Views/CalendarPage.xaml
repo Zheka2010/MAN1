@@ -32,12 +32,23 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="14"/>
                             </Border.StrokeShape>
-                            <VerticalStackLayout Spacing="4">
-                                <Label Text="{Binding Subject}" FontSize="18" FontAttributes="Bold"/>
-                                <Label Text="{Binding StudentName}" FontSize="15"/>
-                                <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}" FontSize="15"/>
-                                <Label Text="{Binding Comment}" FontSize="14"/>
-                            </VerticalStackLayout>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="{Binding Subject}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding StudentName}" FontSize="15"/>
+                                    <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm}'}" FontSize="15"/>
+                                    <Label Text="{Binding Comment}" FontSize="14"/>
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1"
+                                    Text="✕"
+                                    FontSize="18"
+                                    WidthRequest="45"
+                                    HeightRequest="45"
+                                    CornerRadius="23"
+                                    VerticalOptions="Center"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="DeleteLessonButton_Clicked"/>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

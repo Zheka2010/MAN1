@@ -66,7 +66,7 @@ public partial class LessonsPage : ContentPage
     }
     private async void StatisticsButton_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new StatisticsPage(_lessonService));
+        await Navigation.PushAsync(new StatisticsPage(_lessonService, _studentService));
     }
     private async void CalendarButton_Clicked(object sender, EventArgs e)
     {
