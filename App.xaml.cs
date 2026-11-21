@@ -11,6 +11,9 @@ public partial class App : Application
 
         db.Database.EnsureCreated();
 
-        MainPage = new NavigationPage(lessonsPage);
+        if (Preferences.Get("IsRegistered", false))
+            MainPage = new NavigationPage(lessonsPage);
+        else
+            MainPage = new NavigationPage(new RegisterPage(lessonsPage));
     }
 }
